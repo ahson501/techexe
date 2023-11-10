@@ -1,0 +1,20 @@
+version: '3.11'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+  web:
+    build: .
+    command: bash -c "python manage.py migrate && python manage.py runserver 0.0.0.0:7000"
+    volumes:
+      - .:/app
+    ports:
+      - "7000:7000"
+    depends_on:
+      - db
+   
+    
